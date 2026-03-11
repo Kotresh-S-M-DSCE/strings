@@ -1,0 +1,23 @@
+class Solution {
+    public int bitwiseComplement(int n) {
+        StringBuilder sb=new StringBuilder();
+        if(n==0)
+           return 1;
+        while(n>0)
+        {
+            sb.insert(0,n%2);
+            n/=2;
+        }
+        int i=0,sum=0;
+        while(i<sb.length())
+        {
+            if(sb.charAt(i)=='0')
+               sb.setCharAt(i,'1');
+            else
+               sb.setCharAt(i,'0');
+            sum=sum*2+(sb.charAt(i)-'0');
+            i++;
+        }
+        return sum;
+    }
+}
