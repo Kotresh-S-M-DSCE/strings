@@ -1,0 +1,52 @@
+class Solution {
+    public int conv(String str)
+    {
+        int n=0,sum=0;
+        while(n<str.length())
+        {
+            sum=sum*2+(str.charAt(n)-'0');
+            n++;
+        }
+        return sum;
+    }
+    public String findDifferentBinaryString(String[] nums) {
+        int[] arr=new int[nums.length];
+        int num=0,flag=0,j;
+        for(int i=0;i<nums.length;i++)
+            arr[i]=conv(nums[i]);
+        Arrays.sort(arr);
+        for(j=0;j<arr.length;j++)
+        {
+            if(arr[j]!=j)
+            {
+                flag=1;
+                num=j;
+                break;
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        if(flag==0)
+           num=j;
+        if(num==0)
+        {
+            for(int k=0;k<nums.length;k++)
+                sb.append("0");
+        }
+        else
+        {
+           while(num>0)
+           {
+              int rem=num%2;
+              sb.insert(0,rem);
+              num/=2;
+           }
+        }
+         if(sb.length()<nums.length)
+           {
+              int temp=sb.length();
+              for(int i=1;i<=(nums.length-temp);i++)
+                 sb.insert(0,"0");
+           }
+        return sb.toString();
+    }
+}
