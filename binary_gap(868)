@@ -1,0 +1,31 @@
+class Solution {
+    public int binaryGap(int n) {
+        StringBuilder sb=new StringBuilder();
+        while(n>0)
+        {
+            sb.insert(0,n%2);
+            n/=2;
+        }
+        int dist=0,i=0;
+        while(i<sb.length())
+        {
+            int count=1;
+            if(sb.charAt(i)=='1')
+            {
+                i++;
+                while(i!=sb.length()&&sb.charAt(i)!='1')
+                {
+                    count++;
+                    i++;
+                }
+                if(i==sb.length())
+                   return dist;
+                if(dist<count)
+                   dist=count;
+            }
+            else
+               i++;
+        }
+        return dist;
+    }
+}
