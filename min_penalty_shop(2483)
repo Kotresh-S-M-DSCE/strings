@@ -1,0 +1,39 @@
+class Solution {
+    public int bestClosingTime(String customers) {
+        int county=0;
+        for(int i=0;i<customers.length();i++)
+        {
+            if(customers.charAt(i)=='Y')
+               county++;
+        }
+        if(county==customers.length())
+            return county;
+        int[] arr=new int[customers.length()+1];
+        arr[0]=county;
+        for(int i=1;i<customers.length();i++)
+        {
+            if(customers.charAt(i)=='Y'&&customers.charAt(i-1)=='Y')
+                arr[i]=arr[i-1]-1;
+            else if(customers.charAt(i)=='Y'&&customers.charAt(i-1)=='N')
+                arr[i]=arr[i-1]+1;
+            else if(customers.charAt(i)=='N'&&customers.charAt(i-1)=='N')
+                arr[i]=arr[i-1]+1;
+            else
+                arr[i]=arr[i-1]-1;
+        }
+        if(customers.charAt(customers.length()-1)=='Y')
+            arr[customers.length()]=arr[customers.length()-1]-1;
+        if(customers.charAt(customers.length()-1)=='N')
+            arr[customers.length()]=arr[customers.length()-1]+1;
+        int min=arr[0],ind=0;
+        for(int j=1;j<arr.length;j++)
+        {
+            if(min>arr[j])
+            {
+               min=arr[j];
+               ind=j;
+            }
+        }
+        return ind;
+    }
+}
