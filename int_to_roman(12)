@@ -1,0 +1,54 @@
+class Solution {
+    public String conv(int num)
+    {
+        switch(num)
+        {
+            case 1 : return "I";
+            case 5 : return "V";
+            case 10 : return "X";
+            case 50 : return "L";
+            case 100 : return "C";
+            case 500 : return "D";
+            case 1000 : return "M";
+            case 4 : return "IV";
+            case 9 : return "IX";
+            case 40 : return "XL";
+            case 90 : return "XC";
+            case 400 : return "CD";
+        }
+        return "CM";
+    }
+    public String intToRoman(int num) {
+        StringBuilder sb=new StringBuilder();
+        for(int i=1;num>0;i++)
+        {
+            int rem=num%10;
+            if(rem!=0)
+            {
+            int temp=rem;
+            for(int j=1;j<i;j++)
+                rem*=10;
+            if(temp==4||temp==9||temp==5||temp==1)
+                sb.insert(0,conv(rem));
+            else
+            {
+                if(temp>5)
+                {
+                    int a=temp-5,b=rem/temp;
+                    for(int j=0;j<a;j++)
+                        sb.insert(0,conv(b));
+                    sb.insert(0,conv(5*(rem/temp)));   
+                }
+                else
+                {
+                    int b=rem/temp;
+                    for(int j=0;j<temp;j++)
+                        sb.insert(0,conv(b));
+                }
+            }
+            }
+            num/=10;
+        }
+        return sb.toString();
+    }
+}
