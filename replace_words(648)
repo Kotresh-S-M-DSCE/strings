@@ -1,0 +1,29 @@
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        Set<String> set=new HashSet<>();
+        for(int i=0;i<dictionary.size();i++)
+           set.add(dictionary.get(i));
+        int i=0;
+        StringBuilder sb=new StringBuilder();
+        while(i<sentence.length())
+        {
+            int j=i;
+            StringBuilder temp=new StringBuilder();
+            while(j<sentence.length()&&sentence.charAt(j)!=' ')
+            {
+                temp.append(sentence.charAt(j));
+                if(set.contains(temp.toString()))
+                   break;
+                j++;
+            }
+            i=j;
+            while(i<sentence.length()&&sentence.charAt(i)!=' ')
+               i++;
+            sb.append(temp);
+            sb.append(' ');
+            i++;
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
+}
