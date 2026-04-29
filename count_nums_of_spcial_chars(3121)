@@ -1,0 +1,25 @@
+class Solution {
+    public int numberOfSpecialChars(String word) {
+        int[] small=new int[26];
+        int[] big=new int[26];
+        for(int i=0;i<word.length();i++)
+        {
+            if(word.charAt(i)<=122&&word.charAt(i)>=97)
+            {
+                if(big[word.charAt(i)-'a']==0)
+                   small[word.charAt(i)-'a']=1;
+                else
+                   small[word.charAt(i)-'a']=0;
+            }
+            else
+               big[word.charAt(i)-'A']=1;
+        }
+        int count=0;
+        for(int i=0;i<26;i++)
+        {
+            if(big[i]==1&&small[i]==1)
+               count++;
+        }
+        return count;
+    }
+}
