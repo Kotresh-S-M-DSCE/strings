@@ -1,0 +1,18 @@
+class Solution {
+    public String reverseWords(String s) {
+        StringBuilder sb=new StringBuilder();
+        int j=0;
+        while(j<s.length())
+        {
+            while(j<s.length()&&s.charAt(j)!=' ')
+               j++;
+            int k=j-1;
+            while(k>=0&&s.charAt(k)!=' ')
+               sb.append(s.charAt(k--));
+            j++;
+            sb.append(' ');
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
+}
