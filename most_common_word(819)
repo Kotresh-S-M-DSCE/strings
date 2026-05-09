@@ -1,0 +1,43 @@
+class Solution {
+    public String mostCommonWord(String s, String[] banned) {
+        Map<String,Integer> map=new HashMap<>();
+        int i=0;
+        while(i<s.length())
+        {
+            StringBuilder sb=new StringBuilder();
+            int flag=0;
+            while(i<s.length()&&Character.isLetter(s.charAt(i)))
+            {
+                flag=1;
+                char ch=Character.toLowerCase(s.charAt(i++));
+                sb.append(ch);
+            }
+            if(flag==1)
+            {
+                if(!map.containsKey(sb.toString()))
+                   map.put(sb.toString(),0);
+                int num=map.get(sb.toString());
+                map.put(sb.toString(),num+1);
+            }
+            else 
+               i++;
+        }
+        for(int j=0;j<banned.length;j++)
+        {
+            if(map.containsKey(banned[j]))
+               map.remove(banned[j]);
+        }
+        int max=0;
+        String ret="";
+        for(Map.Entry<String,Integer> entry:map.entrySet())
+        {
+            int num=entry.getValue();
+            if(num>max)
+            {
+                ret=entry.getKey();
+                max=num;
+            }
+        }
+        return ret;
+    }
+}
