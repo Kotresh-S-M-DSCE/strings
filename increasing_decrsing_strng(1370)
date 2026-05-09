@@ -1,0 +1,41 @@
+class Solution {
+    public String sortString(String s) {
+        int[] arr=new int[26];
+        List<Integer> list=new ArrayList<>();
+        for(int i=0;i<s.length();i++)
+           arr[s.charAt(i)-'a']++;
+        for(int i=0;i<26;i++)
+        {
+            if(arr[i]>0)
+               list.add(i);
+        }
+        int count=s.length();
+        StringBuilder sb=new StringBuilder();
+        while(count>0)
+        {
+            for(int i=0;i<list.size();i++)
+            {
+                if(arr[list.get(i)]>0)
+                {
+                    int temp=list.get(i);
+                    char ins=(char)(temp+'a');
+                    sb.append(ins);
+                    arr[list.get(i)]--;
+                    count--;
+                }
+            }
+            for(int i=list.size()-1;i>=0;i--)
+            {
+                if(arr[list.get(i)]>0)
+                {
+                    int temp=list.get(i);
+                    char ins=(char)(temp+'a');
+                    sb.append(ins);
+                    arr[list.get(i)]--;
+                    count--;
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
