@@ -1,0 +1,20 @@
+class Solution {
+    public String makeGood(String s) {
+        StringBuilder sb=new StringBuilder();
+        char[] stack=new char[s.length()];
+        int top=0;
+        stack[0]=s.charAt(0);
+        int i=1;
+        while(i<s.length())
+        {
+            if(top!=-1&&(stack[top]-s.charAt(i)==32||stack[top]-s.charAt(i)==-32))
+               top--;
+            else
+               stack[++top]=s.charAt(i);
+            i++;
+        }
+        while(top!=-1)
+           sb.insert(0,stack[top--]);
+        return sb.toString();
+    }
+}
