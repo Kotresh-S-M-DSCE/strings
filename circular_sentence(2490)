@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isCircularSentence(String s) {
+        int i=0;
+        while(i<s.length())
+        {
+            while(i<s.length()&&s.charAt(i)!=' ')
+                i++;
+            if(i<s.length())
+            {
+                if(s.charAt(i-1)!=s.charAt(i+1))
+                   return false;
+            }
+            i++;
+        }
+        if(s.charAt(0)!=s.charAt(s.length()-1))
+           return false;
+        return true;
+    }
+}
