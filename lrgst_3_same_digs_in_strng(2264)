@@ -1,0 +1,38 @@
+class Solution {
+    public String largestGoodInteger(String num) {
+        int i=0,j=1,temp=-1;
+        while(j<num.length()&&i<num.length())
+        {
+            int count=0;
+            while(j<num.length()&&i<num.length()&&count<2&&num.charAt(i)==num.charAt(j))
+            {
+                count++;
+                j++;
+            }
+            int comp=num.charAt(i)-'0';
+            if(count==2&&comp>temp)
+            {
+                temp=num.charAt(i)-'0';
+                i=j;
+                j++;
+            }
+            else if(count!=0)
+            {
+                i=j;
+                j++;
+            }
+            else
+            {
+                i++;
+                j++;
+            }
+        }
+        if(temp==-1)
+           return "";
+        StringBuilder sb=new StringBuilder();
+        sb.append((char)(temp+'0'));
+        sb.append((char)(temp+'0'));
+        sb.append((char)(temp+'0'));
+        return sb.toString();
+    }
+}
