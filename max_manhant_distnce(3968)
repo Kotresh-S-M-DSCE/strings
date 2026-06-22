@@ -1,0 +1,23 @@
+class Solution {
+    public int maxDistance(String moves) {
+        int hor=0,ver=0,count=0;
+        for(int i=0;i<moves.length();i++)
+        {
+            if(moves.charAt(i)=='L')
+               hor--;
+            else if(moves.charAt(i)=='R')
+               hor++;
+            else if(moves.charAt(i)=='U')
+               ver++;
+            else if(moves.charAt(i)=='D')
+               ver--;
+            else
+               count++;
+        }
+        if(hor<0)
+           hor=-hor;
+        if(ver<0)
+           ver=-ver;
+        return (hor+ver+count);
+    }
+}
