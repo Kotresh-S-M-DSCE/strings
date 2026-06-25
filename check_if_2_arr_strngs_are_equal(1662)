@@ -1,0 +1,35 @@
+class Solution {
+    public boolean arrayStringsAreEqual(String[] w1, String[] w2) {
+        int i=0,j=0,k=0,l=0;
+        while(i<w1.length&&j<w2.length)
+        {
+            while(k<w1[i].length()&&l<w2[j].length())
+            {
+                if(w1[i].charAt(k)!=w2[j].charAt(l))
+                   return false;
+                k++;
+                l++;
+            }
+            if(k==w1[i].length()&&l<w2[j].length())
+            {
+                i++;
+                k=0;
+            }
+            else if(l==w2[j].length()&&k<w1[i].length())
+            {
+                j++;
+                l=0;
+            }
+            else
+            {
+                k=0;
+                l=0;
+                i++;
+                j++;
+            }
+        }
+        if(i<w1.length||j<w2.length)
+           return false;
+        return true;
+    }
+}
