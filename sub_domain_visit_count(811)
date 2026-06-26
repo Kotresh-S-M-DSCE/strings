@@ -1,0 +1,59 @@
+class Solution {
+    public List<String> subdomainVisits(String[] c) {
+        Map<String,Integer> map=new HashMap<>();
+        for(int i=0;i<c.length;i++)
+        {
+            int j=0,num=0;
+            while(c[i].charAt(j)!=' ')
+                num=num*10+c[i].charAt(j++)-'0';
+            j=c[i].length()-1;
+            StringBuilder s1=new StringBuilder();
+            while(c[i].charAt(j)!='.')
+                s1.insert(0,c[i].charAt(j--));
+            if(!map.containsKey(s1.toString()))
+               map.put(s1.toString(),num);
+            else
+            {
+                int temp=map.get(s1.toString());
+                map.put(s1.toString(),(temp+num));
+            }
+            j--;
+            s1.insert(0,'.');
+            while(c[i].charAt(j)!='.'&&c[i].charAt(j)!=' ')
+               s1.insert(0,c[i].charAt(j--));
+            if(!map.containsKey(s1.toString()))
+               map.put(s1.toString(),num);
+            else
+            {
+                int temp=map.get(s1.toString());
+                map.put(s1.toString(),(temp+num));
+            }
+            if(c[i].charAt(j)=='.')
+            {
+                j--;
+                s1.insert(0,'.');
+                while(c[i].charAt(j)!=' ')
+                   s1.insert(0,c[i].charAt(j--));
+                if(!map.containsKey(s1.toString()))
+                   map.put(s1.toString(),num);
+                else
+                {
+                   int temp=map.get(s1.toString());
+                   map.put(s1.toString(),(temp+num));
+                }
+            }
+        }
+        List<String> ret=new ArrayList<>();
+        for(Map.Entry<String,Integer> entry : map.entrySet())
+        {
+            String str=entry.getKey();
+            int num=entry.getValue();
+            StringBuilder sb=new StringBuilder();
+            sb.append(num);
+            sb.append(' ');
+            sb.append(str);
+            ret.add(sb.toString());
+        }
+        return ret;
+    }
+}
