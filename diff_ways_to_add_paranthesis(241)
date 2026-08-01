@@ -1,0 +1,39 @@
+class Solution {
+    public List<Integer> fun(String e,int low,int high)
+    {
+        List<Integer> ret=new ArrayList<>();
+        if((high-low)<=1)
+        {
+            int num=0,k=low;
+            while(k<=high)
+                num=num*10+(e.charAt(k++)-'0');
+            ret.add(num);
+            return ret;
+        }
+        for(int i=low;i<=high;i++)
+        {
+            if(!Character.isDigit(e.charAt(i)))
+            {
+                List<Integer> l1=fun(e,low,i-1);
+                List<Integer> l2=fun(e,i+1,high);
+                Character ch=e.charAt(i);
+                for(int m=0;m<l1.size();m++)
+                {
+                    for(int j=0;j<l2.size();j++)
+                    {
+                        if(ch=='+')
+                           ret.add(l1.get(m)+l2.get(j));
+                        else if(ch=='-')
+                           ret.add(l1.get(m)-l2.get(j));
+                        else
+                           ret.add(l1.get(m)*l2.get(j));
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+    public List<Integer> diffWaysToCompute(String e) {
+        return fun(e,0,e.length()-1);
+    }
+}
