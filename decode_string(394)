@@ -1,0 +1,67 @@
+class Solution {
+    public String fun(String s,int start,int last)
+    {
+        int num=0,stack=0;
+        while(Character.isDigit(s.charAt(start)))
+            num=num*10+s.charAt(start++)-'0';
+        StringBuilder sb=new StringBuilder();
+        StringBuilder loc=new StringBuilder();
+        int i=start;
+        while(i<=last)
+        {
+            if(stack==0)
+            {
+                if(num==0)
+                    sb.append(loc);
+                else
+                {
+                    for(int k=0;k<num;k++)
+                       sb.append(loc);
+                }
+                loc.setLength(0);
+            }
+            if(Character.isDigit(s.charAt(i))&&stack!=0)
+            {
+                int c=1,st=i;
+                while(Character.isDigit(s.charAt(i)))
+                   i++;
+                i++;
+                while(c!=0)
+                {
+                    if(s.charAt(i)=='[')
+                       c++;
+                    if(s.charAt(i)==']')
+                       c--;
+                    i++;
+                }
+                loc.append(fun(s,st,i-1));
+                i--;
+            }
+            else if(Character.isDigit(s.charAt(i))&&stack==0)
+            {
+                num=0;
+                while(Character.isDigit(s.charAt(i)))
+                    num=num*10+s.charAt(i++)-'0';
+                i--;
+            }
+            else if(s.charAt(i)=='[')
+               stack++;
+            else if(s.charAt(i)==']')
+               stack--;
+            else if(Character.isLetter(s.charAt(i))&&stack==0)
+               sb.append(s.charAt(i));
+            else
+               loc.append(s.charAt(i));
+            i++;
+        }
+        if(loc.length()!=0)
+        {
+            for(int k=0;k<num;k++)
+               sb.append(loc);
+        }
+        return sb.toString();
+    }
+    public String decodeString(String s) {
+        return fun(s,0,s.length()-1);
+    }
+}
