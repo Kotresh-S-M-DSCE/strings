@@ -1,0 +1,48 @@
+class Solution {
+    List<String> list=new ArrayList<>();
+    public int fact(int n)
+    {
+        switch(n)
+        {
+            case 1 : return 1;
+            case 2 : return 2;
+            case 3 : return 6;
+            case 4 : return 24;
+            case 5 : return 120;
+            case 6 : return 720;
+        }
+        return 5040;
+    }
+    public void comb(String s,int n,StringBuilder sb)
+    {
+        if(sb.length()>0)
+            list.add(sb.toString());
+        for(int i=n;i<s.length();i++)
+        {
+            if(i>n&&s.charAt(i)==s.charAt(i-1))
+               continue;
+            sb.append(s.charAt(i));
+            comb(s,i+1,sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+    public int numTilePossibilities(String tiles) {
+        int count=0;
+        char[] ch=tiles.toCharArray();
+        Arrays.sort(ch);
+        tiles=new String(ch);
+        comb(tiles,0,new StringBuilder());
+        for(int i=0;i<list.size();i++)
+        {
+            int[] arr=new int[26];
+            int mul=1;
+            for(int j=0;j<list.get(i).length();j++)
+            {
+                arr[list.get(i).charAt(j)-'A']++;
+                mul*=arr[list.get(i).charAt(j)-'A'];
+            }
+            count+=fact(list.get(i).length())/mul;
+        }
+        return count;
+    }
+}
