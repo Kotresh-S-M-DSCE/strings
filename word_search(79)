@@ -1,0 +1,39 @@
+class Solution {
+    public boolean fun(char[][] board,String word,int[][] check,int i,int j,int st)
+    {
+        if(st==word.length())
+           return true;
+        if(i<0||j<0||i==board.length||j==board[0].length||check[i][j]==1||board[i][j]!=word.charAt(st))
+           return false;
+        check[i][j]=1;
+        if(fun(board,word,check,i,j-1,st+1))
+           return true;
+        if(fun(board,word,check,i-1,j,st+1))
+           return true;
+        if(fun(board,word,check,i,j+1,st+1))
+           return true;
+        if(fun(board,word,check,i+1,j,st+1))
+           return true;
+        check[i][j]=0;
+        return false;
+    }
+    public boolean exist(char[][] board, String word) {
+        List<Integer> list=new ArrayList<>();
+        int[][] check=new int[board.length][board[0].length];
+        for(int i=0;i<board.length;i++)
+        {
+            for(int j=0;j<board[0].length;j++)
+            {
+                if(board[i][j]==word.charAt(0))
+                    list.add(i*10+j);
+                check[i][j]=0;
+            }
+        }
+        for(int i=0;i<list.size();i++)
+        {
+            if(fun(board,word,check,list.get(i)/10,list.get(i)%10,0))
+               return true;
+        }
+        return false;
+    }
+}
