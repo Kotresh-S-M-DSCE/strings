@@ -1,0 +1,42 @@
+class Solution {
+    int low=1;
+    public String fun(int n,int k,StringBuilder sb)
+    {
+        if(n==sb.length())
+        {
+            if(k==low)
+                return sb.toString();
+            low++;
+            return "";
+        }
+        if(sb.length()==0||sb.charAt(sb.length()-1)!='a')
+        {
+           sb.append('a');
+           String temp=fun(n,k,sb);
+           if(!(temp).equals(""))
+              return temp;
+           sb.deleteCharAt(sb.length()-1);
+        }
+        if(sb.length()==0||sb.charAt(sb.length()-1)!='b')
+        {
+           sb.append('b');
+           String temp=fun(n,k,sb);
+           if(!(temp).equals(""))
+              return temp;
+           sb.deleteCharAt(sb.length()-1);
+        }
+        if(sb.length()==0||sb.charAt(sb.length()-1)!='c')
+        {
+           sb.append('c');
+           String temp=fun(n,k,sb);
+           if(!(temp).equals(""))
+              return temp;
+           sb.deleteCharAt(sb.length()-1);
+        }
+        return "";
+    }
+    public String getHappyString(int n, int k) {
+        //abab abac abca abcb acab acac acba acbc baba babc baca bacb bcab bcac bcba bcbc 
+        return fun(n,k,new StringBuilder());
+    }
+}
