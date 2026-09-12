@@ -1,0 +1,25 @@
+class Solution {
+    int max=0;
+    public void fun(String s,Set<String> set,int st)
+    {
+        if(st==s.length())
+        {
+            if(set.size()>max)
+               max=set.size();
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=st;i<s.length();i++)
+        {
+            sb.append(s.charAt(i));
+            if(set.contains(sb.toString()))
+               continue;
+            set.add(sb.toString());
+            fun(s,set,i+1);
+            set.remove(sb.toString());
+        }
+    }
+    public int maxUniqueSplit(String s) {
+        fun(s,new HashSet<>(),0);
+        return max;
+    }
+}
