@@ -1,0 +1,54 @@
+class Solution {
+    public String fun(String[] w,int st,int last,int max,int let)
+    {
+        StringBuilder sb=new StringBuilder();
+        if(st==last)
+        {
+            sb.append(w[st]);
+            while(sb.length()<max)
+               sb.append(' ');
+            return sb.toString();
+        }
+        int temp=max-let,div=temp/(last-st),rem=temp%(last-st);
+        for(int i=st;i<last;i++)
+        {
+            sb.append(w[i]);
+            sb.append(" ".repeat(div));
+            if(rem>0)
+            {
+                sb.append(' ');
+                rem--;
+            }
+        }
+        sb.append(w[last]);
+        return sb.toString();
+    }
+    public List<String> fullJustify(String[] words, int max) {
+        int st=0,count=0,last=0,let=0;
+        List<String> list=new ArrayList<>();
+        for(int i=0;i<words.length;i++)
+        {
+            count+=words[i].length()+1;
+            if(count-1>max)
+            {
+                list.add(fun(words,st,last,max,let));
+                count=words[i].length()+1;
+                let=0;
+                st=i;
+            }
+            let+=words[i].length();
+            last=i;
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=st;i<=last;i++)
+        {
+            sb.append(words[i]);
+            sb.append(' ');
+        }
+        sb.deleteCharAt(sb.length()-1);
+        while(sb.length()<max)
+            sb.append(' ');
+        list.add(sb.toString());
+        return list;
+    }
+}
