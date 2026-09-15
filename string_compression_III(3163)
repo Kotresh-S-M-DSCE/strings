@@ -1,0 +1,20 @@
+class Solution {
+    public String compressedString(String word) {
+        StringBuilder sb=new StringBuilder();
+        int i=1,count=1;
+        for(;i<word.length();i++)
+        {
+            if(word.charAt(i)!=word.charAt(i-1)||count==9)
+            {
+                sb.append(count);
+                sb.append(word.charAt(i-1));
+                count=1;
+            }
+            else
+                count++;
+        }
+        sb.append(count);
+        sb.append(word.charAt(i-1));
+        return sb.toString();
+    }
+}
