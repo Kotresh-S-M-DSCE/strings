@@ -1,0 +1,29 @@
+class Solution {
+    public int compress(char[] chars) {
+        StringBuilder sb=new StringBuilder();
+        int i=1,count=1;
+        for(i=1;i<chars.length;i++)
+        {
+            if(chars[i]==chars[i-1])
+               count++;
+            else
+            {
+                sb.append(chars[i-1]);
+                if(count>1)
+                   sb.append(count);
+                count=1;
+            }
+        }
+        sb.append(chars[i-1]);
+        if(count>1)
+            sb.append(count);
+        for(i=0;i<sb.length();i++)
+        {
+            if(Character.isDigit(sb.charAt(i)))
+                chars[i]=(char)(sb.charAt(i));
+            else
+                chars[i]=sb.charAt(i);
+        }
+        return sb.length();
+    }
+}
