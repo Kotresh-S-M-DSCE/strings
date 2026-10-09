@@ -1,0 +1,48 @@
+class Solution {
+    public int minInsertions(String s) {
+        int ret=0,i;
+        List<Character> list=new ArrayList<>();
+        for(i=0;i<s.length()-1;i++)
+        {
+            if(s.charAt(i)=='(')
+               list.add('(');
+            else
+            {
+                if(list.size()==0)
+                {
+                    if(s.charAt(i+1)=='(')
+                       ret+=2;
+                    else
+                    {
+                       ret+=1;
+                       i++;
+                    }
+                }
+                else
+                {
+                    if(s.charAt(i+1)=='(')
+                       ret+=1;
+                    else
+                       i++;
+                    list.remove(list.size()-1);
+                }
+            }
+        }
+        if(i==s.length()-1)
+        {
+            if(s.charAt(i)=='(')
+               list.add('(');
+            else
+            {
+                if(list.size()==0)
+                   ret+=2;
+                else
+                {
+                    ret+=1;
+                    list.remove(list.size()-1);
+                }
+            }
+        }
+        return ret+2*list.size();
+    }
+}
