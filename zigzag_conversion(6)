@@ -1,0 +1,44 @@
+class Solution {
+    public String convert(String s, int num) {
+        if(num==1)
+           return s;
+        int col=0,i=0;
+        while(i<s.length())
+        {
+            i+=num;
+            col++;
+            int temp=0;
+            while(i<s.length()&&temp<num-2)
+            {
+                temp++;
+                i++;
+                col++;
+            }
+        }
+        char[][] mat=new char[num][col];
+        i=0;
+        int j=0;
+        while(i<s.length())
+        {
+            int temp=0;
+            while(i<s.length()&&temp<num)
+                mat[temp++][j]=s.charAt(i++);
+            if(i==s.length())
+               break; 
+            j++;
+            temp-=2;
+            while(i<s.length()&&temp>0)
+                mat[temp--][j++]=s.charAt(i++);
+        }
+        StringBuilder ret=new StringBuilder();
+        for(i=0;i<num;i++)
+        {
+            for(j=0;j<col;j++)
+            {
+                if(mat[i][j]!=0)
+                   ret.append(mat[i][j]);
+            }
+        }
+        return ret.toString();
+    }
+}
